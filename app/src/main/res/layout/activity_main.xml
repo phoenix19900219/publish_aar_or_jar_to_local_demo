@@ -15,4 +15,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_jlib"
+        android:layout_marginTop="30dp"
+        tools:text="3 + 11 = 14"/>
+    <com.stone.alib.MyTextView
+        android:padding="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:background="@color/colorPrimary"/>
+
 </RelativeLayout>

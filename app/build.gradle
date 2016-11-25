@@ -26,4 +26,16 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
+
+
+    //2. 生命依赖
+    compile 'com.stone.jlib:jlib:0.8.2'
+    compile 'com.stone.alib:alib:1.0.0'
+}
+
+repositories {
+    jcenter()
+    maven {
+        url '../repo' //1. 声明本地maven仓库的地址
+    }
 }
