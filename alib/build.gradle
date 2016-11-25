@@ -1,0 +1,57 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    testCompile 'junit:junit:4.12'
+}
+
+
+/***************** 配置pushlish相关信息 ***************/
+// 在项目更目录下执行命令: `./gradlew :alib:clean :alib:uploadArchives` 来发布此jar包 (先执行clean任务, 在执行发布任务)
+// 可以在项目根目录下执行命令: `./gradlew clean uploadArchives` 来发布项目下可以发布的所有包(aar/jar等)
+apply plugin: 'maven' //应用maven插件
+group = 'com.stone.alib'    //配置group
+version = '1.0.0'           //配置版本
+//包类型会根据项目类型自动判断, 如果是android library项目则打包成aar, 如果是java项目则打包成jar包
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //配置发布的仓库 (不需要授权验证相关的配置). 同时只能配置一个maven仓库, 如果定义了多个, 后面的会覆盖掉前面的
+            repository(url:uri('../repo')) //发布到自定义的本地仓库 (项目跟目录下的repo目录中)
+//            repository(url:uri('/Users/stone/demo-repo')) //发布到自定义的本地仓库(绝对路径)
+//            repository(url:repositories.mavenLocal().getUrl()) // 发布到本地maven仓库 => "/<user_home>/.m2/repository/"
+
+
+            //配置远程仓库(发布到远程仓库需要授权验证相关的配置)
+//            repository(url:repositories.mavenCentral())
+//            repository(url:repositories.jcenter())
+        }
+    }
+}
+

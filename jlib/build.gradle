@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+// 在项目更目录下执行命令: `./gradlew :jlib:clean :jlib:uploadArchives` 来发布此jar包
+// 可以在项目根目录下执行命令: `./gradlew clean uploadArchives` 来发布项目下可以发布的所有包(aar/jar等)
+apply plugin: 'maven'
+group = 'com.stone.jlib'
+version = '0.8.2'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+        }
+    }
+}
