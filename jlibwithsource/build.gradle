@@ -1,0 +1,48 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+
+
+//在项目根目录下执行命令 `./gradlew :jlibwithsource:clean :jlibwithsource:publish`, 来发布当前jar包
+//使用这个配置发布的包包括: 源码打成的jar包和class文件打成的jar包
+apply plugin: "maven-publish"
+//修改已有的task (在publications使用此task)
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier "sources" //定义一个标志 (生成的jar包后面加上sources, 如: jlib-2.2.11-sources.jar)
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            //打包源码和class
+            from components.java    //发布java组件
+
+            //定义源码task
+            artifact sourceJar
+
+            //定义包的坐标:
+            groupId 'com.stone.jlibwithsource.jlib'
+            artifactId 'jlib'
+            version '2.2.11'
+        }
+    }
+
+
+    //定义目标仓库 (包所存放的地方)
+    repositories {
+        //发布到自定义的目录
+        maven {
+            url '../repo' //本地仓库 (包存放在项目更目录下的repo目录)
+        }
+
+        //发布到本地maven仓库 (~/.m2/repository)
+//        mavenLocal()
+    }
+}

@@ -28,7 +28,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
 
-    //2. 生命依赖
+    //2. 声明依赖
+    //tips: 如果有编译依赖错误
+    //  a. 请先注释掉下面的依赖语句(两句compile ....)
+    //  b. 在执行下面的命令生成下面的依赖包:
+//            ./gradlew :alib:clean :alib:uploadArchives
+//            ./gradlew :jlib:clean :jlib:uploadArchives
+    //  c. 现在放开下面的两句依赖语句, 同步项目 (点击Android Studio的toolbar上的`Sync Project with gradle Files`按钮), 这样就可以正常使用了
     compile 'com.stone.jlib:jlib:0.8.2'
     compile 'com.stone.alib:alib:1.0.0'
 }
